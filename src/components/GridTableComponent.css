@@ -1,0 +1,38 @@
+.first-section{
+  display: inline-grid;
+  grid-template-rows: 50px;
+  grid-template-columns: 133px 133px 133px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;  
+}.first-section > div{
+  background-color: grey;
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;  
+}
+.second-section{
+  display: inline-grid;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey; 
+}
+.un-clicked-div{
+  background-color: grey;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+  box-shadow: inset 0 0 5px 2px white;
+}
+.empty-box{
+  background-color: #BEBEBE;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+  box-shadow: none;
+}
+.landmine-div{
+  background: red;
+}
