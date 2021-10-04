@@ -48,8 +48,20 @@ const GridTableComponent = () => {
         sibling = sibling.nextSibling;
       }      
     }
+    findNoneMineBoxes();
   };
 
+  const findNoneMineBoxes = () => {
+    let noneMineBoxes = [];
+    for(const mineLocation of mineLocationsArr){
+      noneMineBoxes.length === 0 ? noneMineBoxes = gridBoxesArr.filter(gridBoxNum => gridBoxNum !== mineLocation) : noneMineBoxes = noneMineBoxes.filter(gridBoxNum => gridBoxNum !== mineLocation);
+    }
+    // setAdjacentMineCount()
+  };
+
+  const setAdjacentMineCount = () => {
+    
+  };
 
   createGrid();
 
