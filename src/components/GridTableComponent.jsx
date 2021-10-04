@@ -6,7 +6,9 @@ const GridTableComponent = () => {
 
   const [gameStarted, setGameStarted] = useState(false)
   const gridBoxesArr = [];
-  const mineLocationsArr = []; 
+  const mineLocationsArr = [];
+  let noneMineBoxesArr = [];
+  const adjacentMinesData = [];
   
   const createGrid = () => {
     let i = 1;
@@ -52,15 +54,30 @@ const GridTableComponent = () => {
   };
 
   const findNoneMineBoxes = () => {
-    let noneMineBoxes = [];
     for(const mineLocation of mineLocationsArr){
-      noneMineBoxes.length === 0 ? noneMineBoxes = gridBoxesArr.filter(gridBoxNum => gridBoxNum !== mineLocation) : noneMineBoxes = noneMineBoxes.filter(gridBoxNum => gridBoxNum !== mineLocation);
+      noneMineBoxesArr.length === 0 ? noneMineBoxesArr = gridBoxesArr.filter(gridBoxNum => gridBoxNum !== mineLocation) : noneMineBoxesArr = noneMineBoxesArr.filter(gridBoxNum => gridBoxNum !== mineLocation);
     }
-    // setAdjacentMineCount()
+    setAdjacentMineCount()
   };
 
   const setAdjacentMineCount = () => {
-    
+    console.log(`😜64`, noneMineBoxesArr);
+    for(const noneMineBox of noneMineBoxesArr){
+      const minesData = new Map();
+      minesData.set(noneMineBox, {objVal: 0});
+      for(const mineLocation of mineLocationsArr){
+        if(noneMineBox + 1 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox - 1 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox + 8 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox - 8 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox + 9 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox - 9 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox + 7 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox - 7 === mineLocation) minesData.get(noneMineBox).objVal++;
+      }
+      adjacentMinesData.push(minesData);
+    }
+    console.log(`😜77`, adjacentMinesData);
   };
 
   createGrid();
