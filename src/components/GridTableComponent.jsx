@@ -8,7 +8,7 @@ const GridTableComponent = () => {
   const gridBoxesArr = [];
   const mineLocationsArr = [];
   let noneMineBoxesArr = [];
-  const adjacentMinesData = [];
+  const [adjacentMinesData, setAdjacentMinesData] = useState([]);
   
   const createGrid = () => {
     let i = 1;
@@ -77,16 +77,16 @@ const GridTableComponent = () => {
 
         if(noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox - 9 === mineLocation) minesData.get(noneMineBox).objVal++;
         
-        if(noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox + 7 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox !== 1 && noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox + 7 === mineLocation) minesData.get(noneMineBox).objVal++;
 
         if(noneMineBox !== 8 && noneMineBox !== 16 && noneMineBox !== 24 && noneMineBox !== 32 && noneMineBox !== 40 && noneMineBox !== 48 && noneMineBox !== 56 && noneMineBox !== 64 && noneMineBox - 7 === mineLocation) minesData.get(noneMineBox).objVal++;
       }
-      adjacentMinesData.push(minesData);
+      setAdjacentMinesData(oldArray => [...oldArray, minesData]);
     }
-    renderMineCount();
   };
 
   const renderMineCount = () => {
+    console.log(`😜90`, adjacentMinesData);
     for(const gridBoxNum of gridBoxesArr){
       for(const data of adjacentMinesData){
         if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) console.log(gridBoxNum + " => " + data.get(gridBoxNum).objVal);
@@ -99,7 +99,13 @@ const GridTableComponent = () => {
   return(
     <section className="second-section">
       {gridBoxesArr.map((gridBoxNum, index) => {
-        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}></div>
+        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}>
+          {adjacentMinesData.map((data, index) => {
+            if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) return data.get(gridBoxNum).objVal
+            /* I returned null to remove the console.log warning. I learned this from https://stackoverflow.com/a/57227359/9497346*/
+            return null;
+          })}
+        </div>
       })}
     </section>
   );
