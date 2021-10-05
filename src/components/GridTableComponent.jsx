@@ -66,18 +66,32 @@ const GridTableComponent = () => {
       const minesData = new Map();
       minesData.set(noneMineBox, {objVal: 0});
       for(const mineLocation of mineLocationsArr){
-        if(noneMineBox + 1 === mineLocation) minesData.get(noneMineBox).objVal++;
-        if(noneMineBox - 1 === mineLocation) minesData.get(noneMineBox).objVal++;
+        if(noneMineBox !== 8 && noneMineBox !== 16 && noneMineBox !== 24 && noneMineBox !== 32 && noneMineBox !== 40 && noneMineBox !== 48 && noneMineBox !== 56 && noneMineBox !== 64 && noneMineBox + 1 === mineLocation) minesData.get(noneMineBox).objVal++;
+
+        if(noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox - 1 === mineLocation) minesData.get(noneMineBox).objVal++;
+
         if(noneMineBox + 8 === mineLocation) minesData.get(noneMineBox).objVal++;
         if(noneMineBox - 8 === mineLocation) minesData.get(noneMineBox).objVal++;
-        if(noneMineBox + 9 === mineLocation) minesData.get(noneMineBox).objVal++;
-        if(noneMineBox - 9 === mineLocation) minesData.get(noneMineBox).objVal++;
-        if(noneMineBox + 7 === mineLocation) minesData.get(noneMineBox).objVal++;
-        if(noneMineBox - 7 === mineLocation) minesData.get(noneMineBox).objVal++;
+
+        if(noneMineBox !== 8 && noneMineBox !== 16 && noneMineBox !== 24 && noneMineBox !== 32 && noneMineBox !== 40 && noneMineBox !== 48 && noneMineBox !== 56 && noneMineBox !== 64 && noneMineBox + 9 === mineLocation) minesData.get(noneMineBox).objVal++;
+
+        if(noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox - 9 === mineLocation) minesData.get(noneMineBox).objVal++;
+        
+        if(noneMineBox !== 9 && noneMineBox !== 17 && noneMineBox !== 25 && noneMineBox !== 33 && noneMineBox !== 41 && noneMineBox !== 49 && noneMineBox !== 57 && noneMineBox + 7 === mineLocation) minesData.get(noneMineBox).objVal++;
+
+        if(noneMineBox !== 8 && noneMineBox !== 16 && noneMineBox !== 24 && noneMineBox !== 32 && noneMineBox !== 40 && noneMineBox !== 48 && noneMineBox !== 56 && noneMineBox !== 64 && noneMineBox - 7 === mineLocation) minesData.get(noneMineBox).objVal++;
       }
       adjacentMinesData.push(minesData);
     }
-    console.log(`😜77`, adjacentMinesData);
+    renderMineCount();
+  };
+
+  const renderMineCount = () => {
+    for(const gridBoxNum of gridBoxesArr){
+      for(const data of adjacentMinesData){
+        if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) console.log(gridBoxNum + " => " + data.get(gridBoxNum).objVal);
+      }
+    }
   };
 
   createGrid();
