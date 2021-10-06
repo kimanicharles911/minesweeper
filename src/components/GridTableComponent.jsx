@@ -21,6 +21,7 @@ const GridTableComponent = () => {
   const startGame = (divNum, eventTarget) => {
     setGameStarted(true);
     generateMineNumbers(eventTarget);
+    setGameStartBoxes(divNum, eventTarget);
   };
 
   const generateMineNumbers = (eventTarget) => {
@@ -85,14 +86,74 @@ const GridTableComponent = () => {
     }
   };
 
-  const renderMineCount = () => {
-    console.log(`😜90`, adjacentMinesData);
-    for(const gridBoxNum of gridBoxesArr){
-      for(const data of adjacentMinesData){
-        if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) console.log(gridBoxNum + " => " + data.get(gridBoxNum).objVal);
+  const setGameStartBoxes = (divNum, eventTarget) => {
+    for(const noneMineBox of noneMineBoxesArr){
+
+      const numOneStarterBoxesArr = [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28];
+      const numEightGreaterStarterBoxesArr = [0, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16, 20, 21, 22, 23, 24];
+      const numEightLessStarterBoxesArr = [1, 2, 3, 4];
+      const numFiftySevenGreaterStarterBoxesArr = [0, 1, 2, 3, 4];
+      const numFiftySevenLessStarterBoxesArr = [24, 23, 22, 21, 20, 16, 15, 14, 13, 12, 8, 7, 6, 5, 4];
+      const numSixtyFourStarterBoxes = [0, 28, 27, 26, 25, 24, 20, 19, 18, 17, 16, 12, 11, 10, 9, 8, 4, 3, 2, 1];
+
+      const styleStarterBoxes = (compareDivNum, numStarterBoxArr, extraNumStarterBoxArr, divNumParam) => {
+        if(compareDivNum){
+          if(numStarterBoxArr){
+            for(const arrItem of numStarterBoxArr){
+              if(divNumParam + arrItem === noneMineBox){
+                let selectedBox = eventTarget.parentNode.firstChild;
+                let selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
+                while(selectedBoxCustomId !== divNumParam + arrItem){
+                  selectedBox = selectedBox.nextSibling;
+                  selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
+                }
+                selectedBox.className = "test-div"; 
+              }
+            }
+          }
+          
+          if(extraNumStarterBoxArr){
+            for(const arrItem of extraNumStarterBoxArr){
+              if(divNumParam - arrItem === noneMineBox){
+                let selectedBox = eventTarget.parentNode.firstChild;
+                let selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
+                while(selectedBoxCustomId !== divNumParam - arrItem){
+                  selectedBox = selectedBox.nextSibling;
+                  selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
+                }
+                selectedBox.className = "test-div"; 
+              }
+            }
+          }
+        }   
+      };
+
+      styleStarterBoxes(divNum === 1, numOneStarterBoxesArr, undefined, divNum);
+      const upperLeftBoxNums = [2, 3, 4, 9, 10, 11, 12, 17, 18, 19, 20, 25, 26, 27, 28];
+      for(const arrItem of upperLeftBoxNums){
+        styleStarterBoxes(divNum === arrItem, numOneStarterBoxesArr, undefined, divNum);        
       }
+
+      styleStarterBoxes(divNum === 8, numEightGreaterStarterBoxesArr, numEightLessStarterBoxesArr, divNum);
+      const upperRightBoxNums = [5, 6, 7, 13, 14, 15, 16, 21, 22, 23, 24, 29, 30, 31, 32];
+      for(const arrItem of upperRightBoxNums){
+        styleStarterBoxes(divNum === arrItem, numEightGreaterStarterBoxesArr, numEightLessStarterBoxesArr, divNum);
+      }
+      
+      styleStarterBoxes(divNum === 57, numFiftySevenGreaterStarterBoxesArr, numFiftySevenLessStarterBoxesArr, divNum);
+      const bottomLeftBoxNums = [33, 34, 35, 36, 41, 42, 43, 44, 49, 50, 51, 52, 58, 59, 60];
+      for(const arrItem of bottomLeftBoxNums){
+        styleStarterBoxes(divNum === arrItem, numFiftySevenGreaterStarterBoxesArr, numFiftySevenLessStarterBoxesArr, divNum);
+      }
+
+      styleStarterBoxes(divNum === 64, undefined, numSixtyFourStarterBoxes, divNum);
+      const bottomRightBoxNums = [37, 38, 39, 40, 45, 46, 47, 48, 53, 54, 55, 56, 61, 62, 63];
+      for(const arrItem of bottomRightBoxNums){
+        styleStarterBoxes(divNum === arrItem, undefined, numSixtyFourStarterBoxes, divNum);
+      }
+
     }
-  };
+  }
 
   createGrid();
 
