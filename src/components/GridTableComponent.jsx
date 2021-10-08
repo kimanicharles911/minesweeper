@@ -4,9 +4,9 @@ import "./GridTableComponent.css";
 
 const GridTableComponent = () => {
 
-  const [gameStarted, setGameStarted] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false);
   const gridBoxesArr = [];
-  const mineLocationsArr = [];
+  const [mineLocationsArr] = useState([]);
   let noneMineBoxesArr = [];
   const [adjacentMinesData, setAdjacentMinesData] = useState([]);
   
@@ -16,6 +16,18 @@ const GridTableComponent = () => {
       gridBoxesArr.push(i);
       i++;
     }
+  };
+
+  const leftClickHandler = () => {
+    document.addEventListener("click", (event) => {
+      event.preventDefault();
+      triggerMines(mineLocationsArr, event);
+    });
+  };
+
+  const rightClickHandler = (event) => {
+    event.preventDefault();
+    plantFlag(event.target);
   };
 
   const startGame = (divNum, eventTarget) => {
@@ -38,6 +50,7 @@ const GridTableComponent = () => {
       }
       i++;
     }
+    leftClickHandler();
     setMineStyles(mineLocationsArr, eventTarget);
   }
 
@@ -62,7 +75,6 @@ const GridTableComponent = () => {
   };
 
   const setAdjacentMineCount = () => {
-    console.log(`😜64`, noneMineBoxesArr);
     for(const noneMineBox of noneMineBoxesArr){
       const minesData = new Map();
       minesData.set(noneMineBox, {objVal: 0});
@@ -107,7 +119,7 @@ const GridTableComponent = () => {
                   selectedBox = selectedBox.nextSibling;
                   selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
                 }
-                selectedBox.className = "test-div"; 
+                selectedBox.className = "safe-div"; 
               }
             }
           }
@@ -121,7 +133,7 @@ const GridTableComponent = () => {
                   selectedBox = selectedBox.nextSibling;
                   selectedBoxCustomId = parseInt(selectedBox.attributes.custom_id.value);
                 }
-                selectedBox.className = "test-div"; 
+                selectedBox.className = "safe-div"; 
               }
             }
           }
@@ -155,12 +167,38 @@ const GridTableComponent = () => {
     }
   }
 
+  const triggerMines = (mineLocationsArr, event) => {
+    for(const mineLocation of mineLocationsArr){
+      if(parseInt(event.target.attributes.custom_id.value) === mineLocation){
+        for(const arrItem of mineLocationsArr){
+          let sibling = event.target.parentNode.firstChild;
+          while(sibling !== null){
+            if(parseInt(sibling.attributes.custom_id.value) === arrItem ){
+              if(sibling.className !== "flag-square"){
+                sibling.className = "second-landmine-div";
+              }
+            }
+            sibling = sibling.nextSibling;
+          }      
+        }
+      }
+    }
+  };
+
+  const plantFlag = (eventTarget) => {
+    for(const mineLocation of mineLocationsArr){
+      if(parseInt(eventTarget.attributes.custom_id.value) === mineLocation ){
+        eventTarget.className = "flag-square";
+      }
+    }
+  };
+
   createGrid();
 
   return(
     <section className="second-section">
       {gridBoxesArr.map((gridBoxNum, index) => {
-        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}>
+        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}>
           {adjacentMinesData.map((data, index) => {
             if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) return data.get(gridBoxNum).objVal
             /* I returned null to remove the console.log warning. I learned this from https://stackoverflow.com/a/57227359/9497346*/

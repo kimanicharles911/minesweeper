@@ -34,8 +34,23 @@
   box-shadow: none;
 }
 .landmine-div{
-  background: red;
+  background: #00CCFF;
 }
-.test-div{
-  background: greenyellow;
+.safe-div{
+  background: #A9A9A9;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+}
+.second-landmine-div{
+  background: #ff0080;  
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+}
+.flag-square{
+  background: #ffff00;  
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
 }
