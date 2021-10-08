@@ -21,6 +21,7 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
+      safeMove(event.target);
       triggerMines(mineLocationsArr, event);
     });
   };
@@ -190,6 +191,14 @@ const GridTableComponent = () => {
       if(parseInt(eventTarget.attributes.custom_id.value) === mineLocation ){
         eventTarget.className = "flag-square";
       }
+    }
+  };
+
+  const safeMove = (eventTarget) => {
+    for(const noneMineBox of noneMineBoxesArr){
+      if(parseInt(eventTarget.attributes.custom_id.value) === noneMineBox ){
+        eventTarget.className = "safe-div";
+      }  
     }
   };
 
