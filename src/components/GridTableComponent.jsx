@@ -28,6 +28,7 @@ const GridTableComponent = () => {
       console.log(`😜27`, event.target.innerHTML); */
       safeMove(event.target);
       triggerMines(mineLocationsArr, event);
+      setStartBoxesMineCount(event.target);
       setSafeMoveMineCount(adjacentMinesDataRef, event.target);
     });
   };
@@ -189,6 +190,21 @@ const GridTableComponent = () => {
           }      
         }
       }
+    }
+  };
+
+  const setStartBoxesMineCount = (eventTarget) => {
+    let sibling = eventTarget.parentNode.firstChild;
+    for(let i = 1; i < 65; i++){
+      if(sibling.className === "safe-div"){
+        const boxPosition = parseInt(sibling.attributes.custom_id.value);
+        for(const arrData of adjacentMinesDataRef.current){
+          if(arrData.get(boxPosition) && arrData.get(boxPosition).objVal !== 0){
+            sibling.innerHTML = arrData.get(boxPosition).objVal;
+          }
+        }
+      }
+      sibling = sibling.nextSibling;
     }
   };
 
