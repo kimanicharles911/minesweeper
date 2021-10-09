@@ -1,5 +1,5 @@
 /* I learnt to listen to different mouse buttons at: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button */
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./GridTableComponent.css";
 
 const GridTableComponent = () => {
@@ -9,6 +9,9 @@ const GridTableComponent = () => {
   const [mineLocationsArr] = useState([]);
   let noneMineBoxesArr = [];
   const [adjacentMinesData, setAdjacentMinesData] = useState([]);
+  /* Learnt to use the useRef hook from https://stackoverflow.com/a/60643670/9497346 */
+  const adjacentMinesDataRef = useRef();
+  adjacentMinesDataRef.current = adjacentMinesData;
   
   const createGrid = () => {
     let i = 1;
@@ -21,8 +24,11 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
+      /* console.log(`😜27`, event);
+      console.log(`😜27`, event.target.innerHTML); */
       safeMove(event.target);
       triggerMines(mineLocationsArr, event);
+      setSafeMoveMineCount(adjacentMinesDataRef, event.target);
     });
   };
 
@@ -186,6 +192,21 @@ const GridTableComponent = () => {
     }
   };
 
+  const setSafeMoveMineCount = (adjacentMinesDataRef, eventTarget) => {
+    const boxPosition = parseInt(eventTarget.attributes.custom_id.value);
+    for(const noneMineBox of noneMineBoxesArr){
+      if(boxPosition === noneMineBox){
+        if(eventTarget.className === "safe-div"){
+          for(const arrData of adjacentMinesDataRef.current){
+            if(arrData.get(boxPosition) && arrData.get(boxPosition).objVal !== 0){
+              eventTarget.innerHTML = arrData.get(boxPosition).objVal;
+            }
+          }
+        }
+      }
+    }
+  };
+
   const plantFlag = (eventTarget) => {
     for(const mineLocation of mineLocationsArr){
       if(parseInt(eventTarget.attributes.custom_id.value) === mineLocation ){
@@ -207,13 +228,7 @@ const GridTableComponent = () => {
   return(
     <section className="second-section">
       {gridBoxesArr.map((gridBoxNum, index) => {
-        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}>
-          {adjacentMinesData.map((data, index) => {
-            if(data.get(gridBoxNum) && data.get(gridBoxNum).objVal !== 0) return data.get(gridBoxNum).objVal
-            /* I returned null to remove the console.log warning. I learned this from https://stackoverflow.com/a/57227359/9497346*/
-            return null;
-          })}
-        </div>
+        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}></div>
       })}
     </section>
   );
