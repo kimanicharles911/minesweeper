@@ -24,12 +24,12 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
-      /* console.log(`😜27`, event);
-      console.log(`😜27`, event.target.innerHTML); */
-      safeMove(event.target);
-      triggerMines(mineLocationsArr, event);
-      setStartBoxesMineCount(event.target);
-      setSafeMoveMineCount(adjacentMinesDataRef, event.target);
+      if(event.target.className !== "container-fluid" && event.target.className !== "second-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
+        safeMove(event.target);
+        triggerMines(mineLocationsArr, event);
+        setStartBoxesMineCount(event.target);
+        setSafeMoveMineCount(adjacentMinesDataRef, event.target);
+      }
     });
   };
 
@@ -59,21 +59,8 @@ const GridTableComponent = () => {
       i++;
     }
     leftClickHandler();
-    setMineStyles(mineLocationsArr, eventTarget);
-  }
-
-  const setMineStyles = (mineLocationsArr, eventTarget) => {
-    for(const mineLocation of mineLocationsArr){
-      let sibling = eventTarget.parentNode.firstChild;
-      while(sibling !== null){
-        if(parseInt(sibling.attributes.custom_id.value) === mineLocation ){
-          sibling.className = "landmine-div";
-        }
-        sibling = sibling.nextSibling;
-      }      
-    }
     findNoneMineBoxes();
-  };
+  }
 
   const findNoneMineBoxes = () => {
     for(const mineLocation of mineLocationsArr){
