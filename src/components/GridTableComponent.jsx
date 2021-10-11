@@ -216,6 +216,10 @@ const GridTableComponent = () => {
         eventTarget.className = "flag-square";
       }
     }
+
+    if(eventTarget.className === "un-clicked-div" ){
+        eventTarget.className = "flag-square";
+    }  
   };
 
   const safeMove = (eventTarget) => {
