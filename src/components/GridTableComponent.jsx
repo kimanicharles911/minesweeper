@@ -12,6 +12,12 @@ const GridTableComponent = () => {
   /* Learnt to use the useRef hook from https://stackoverflow.com/a/60643670/9497346 */
   const adjacentMinesDataRef = useRef();
   adjacentMinesDataRef.current = adjacentMinesData;
+  const [mineCountArr] = useState([]);
+  if(mineLocationsArr.length === 0){
+    console.log(`😜17`, 10);
+  }else{
+    console.log(`😜19`, mineCountArr.length);
+  }
   
   const createGrid = () => {
     let i = 1;
@@ -55,9 +61,11 @@ const GridTableComponent = () => {
     
       if(mineLocationsArr.length === 0){
         mineLocationsArr.push(randomNum);
+        mineCountArr.push(randomNum);
       }else if(mineLocationsArr.length > 0 && mineLocationsArr.length < 10){
         if(!mineLocationsArr.includes(randomNum) && parseInt(eventTarget.attributes.custom_id.value) !== randomNum){
           mineLocationsArr.push(randomNum);
+          mineCountArr.push(randomNum);
         }
       }
       i++;
@@ -217,7 +225,8 @@ const GridTableComponent = () => {
   const plantFlag = (eventTarget) => {
     plantFlagOnMineBoxes(eventTarget);
     plantFlagOnUnClickedBoxes(eventTarget);
-
+    mineCountArr.pop();
+    console.log(`😜229`, mineCountArr);
   };
 
   const plantFlagOnMineBoxes = (eventTarget) => {
@@ -234,6 +243,10 @@ const GridTableComponent = () => {
 
   const removeFlag = (eventTarget) => {
     eventTarget.className = "un-clicked-div";
+    if(mineLocationsArr.length > 0){
+      mineCountArr.push(1);
+    }
+    console.log(`😜247`, mineCountArr);
   };
 
   const safeMove = (eventTarget) => {
