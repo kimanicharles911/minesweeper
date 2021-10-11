@@ -211,15 +211,22 @@ const GridTableComponent = () => {
   };
 
   const plantFlag = (eventTarget) => {
+    plantFlagOnMineBoxes(eventTarget);
+    plantFlagOnUnClickedBoxes(eventTarget);
+  };
+
+  const plantFlagOnMineBoxes = (eventTarget) => {
     for(const mineLocation of mineLocationsArr){
       if(parseInt(eventTarget.attributes.custom_id.value) === mineLocation ){
         eventTarget.className = "flag-square";
       }
     }
+  };
 
+  const plantFlagOnUnClickedBoxes = (eventTarget) => {
     if(eventTarget.className === "un-clicked-div" ){
         eventTarget.className = "flag-square";
-    }  
+    } 
   };
 
   const safeMove = (eventTarget) => {
