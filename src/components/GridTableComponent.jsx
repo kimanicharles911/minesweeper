@@ -35,7 +35,11 @@ const GridTableComponent = () => {
 
   const rightClickHandler = (event) => {
     event.preventDefault();
-    plantFlag(event.target);
+    if(event.target.className === "un-clicked-div" ){
+      plantFlag(event.target);
+    }else if(event.target.className === "flag-square"){
+      removeFlag(event.target);
+    }
   };
 
   const startGame = (divNum, eventTarget) => {
@@ -213,6 +217,7 @@ const GridTableComponent = () => {
   const plantFlag = (eventTarget) => {
     plantFlagOnMineBoxes(eventTarget);
     plantFlagOnUnClickedBoxes(eventTarget);
+
   };
 
   const plantFlagOnMineBoxes = (eventTarget) => {
@@ -224,9 +229,11 @@ const GridTableComponent = () => {
   };
 
   const plantFlagOnUnClickedBoxes = (eventTarget) => {
-    if(eventTarget.className === "un-clicked-div" ){
-        eventTarget.className = "flag-square";
-    } 
+    eventTarget.className = "flag-square";
+  };
+
+  const removeFlag = (eventTarget) => {
+    eventTarget.className = "un-clicked-div";
   };
 
   const safeMove = (eventTarget) => {
