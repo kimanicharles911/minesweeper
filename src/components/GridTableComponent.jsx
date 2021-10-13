@@ -14,6 +14,7 @@ const GridTableComponent = () => {
   adjacentMinesDataRef.current = adjacentMinesData;
   const [mineCountArr] = useState([]);
   let globalFlaggedBoxesArr;
+  let timerToggle = false;
   
   const createGrid = () => {
     let i = 1;
@@ -33,6 +34,8 @@ const GridTableComponent = () => {
         setStartBoxesMineCount(event.target);
         setSafeMoveMineCount(adjacentMinesDataRef, event.target);
       }
+      !timerToggle && startTimer(event.target);
+      timerToggle = true;
     });
   };
 
@@ -282,10 +285,29 @@ const GridTableComponent = () => {
 
   const notifyGameWon = (eventTarget) => {
     /* Learnt to use every from https://stackoverflow.com/a/60407793/9497346 and https://sebhastian.com/javascript-array-equality/*/
-    if(mineLocationsArr.every(arrItem => globalFlaggedBoxesArr.includes(arrItem))){
+    if(mineLocationsArr.length === globalFlaggedBoxesArr.length && mineLocationsArr.every(arrItem => globalFlaggedBoxesArr.includes(arrItem))){
       eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
       alert("You won!🥳 🙌🎉🥂🎈🎊");
     }
+  };
+
+  const startTimer = (eventTarget) => {
+    /* Learnt to make countUp timer at: https://stackoverflow.com/a/5517836/9497346 */
+    let seconds = 0;
+
+    const setTime = () => {
+      ++seconds;
+      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.innerHTML = addPrefix(seconds % 60);
+      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.nextSibling.firstChild.innerHTML = addPrefix(parseInt(seconds / 60));
+    };
+
+    const addPrefix = (val) => {
+      let valString = val + "";
+      return valString.length < 2 ? "0" + valString : valString;
+      
+    };
+
+    setInterval(setTime, 1000);
   };
 
   createGrid();
@@ -295,7 +317,7 @@ const GridTableComponent = () => {
       <section className="first-section text-center">
         <div className="mineCountDisplay">010</div>
         <div className="first-section-center-div">🙂</div>
-        <div>000</div>
+        <div><span>00</span>:<span>00</span></div>
       </section>
       <br></br>
       <section className="second-section">
