@@ -277,14 +277,14 @@ const GridTableComponent = () => {
     globalFlaggedBoxesArr = flaggedBoxesArr;
     console.log(`😜278`, globalFlaggedBoxesArr);
     console.log(`😜279`, mineLocationsArr);
-    notifyGameWon();
+    notifyGameWon(eventTarget);
   };
 
-  const notifyGameWon = () => {
+  const notifyGameWon = (eventTarget) => {
+    /* Learnt to use every from https://stackoverflow.com/a/60407793/9497346 and https://sebhastian.com/javascript-array-equality/*/
     if(mineLocationsArr.every(arrItem => globalFlaggedBoxesArr.includes(arrItem))){
-      console.log(`😜You won`);
-    }else{
-      console.log(`😜Continue playing please.`);
+      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
+      alert("You won!🥳 🙌🎉🥂🎈🎊");
     }
   };
 
