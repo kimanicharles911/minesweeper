@@ -32,6 +32,7 @@ const GridTableComponent = () => {
       event.preventDefault();
       if(event.target.className !== "container-fluid" && event.target.className !== "second-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
         safeMove(event.target);
+        console.log(`😜35`, event);
         triggerMines(mineLocationsArr, event);
         setStartBoxesMineCount(event.target);
         setSafeMoveMineCount(adjacentMinesDataRef, event.target);
@@ -226,7 +227,14 @@ const GridTableComponent = () => {
     plantFlagOnMineBoxes(eventTarget);
     plantFlagOnUnClickedBoxes(eventTarget);
     mineCountArr.pop();
+    changeDisplayedMineCount(eventTarget);
     console.log(`😜229`, mineCountArr);
+    console.log(`😜230`, mineCountArr.length);
+  };
+
+  const changeDisplayedMineCount = (eventTarget) => {
+    console.log(`😜235`, eventTarget.parentNode.parentNode.firstChild.firstChild);
+    eventTarget.parentNode.parentNode.firstChild.firstChild.innerHTML = mineCountArr.length;
   };
 
   const plantFlagOnMineBoxes = (eventTarget) => {
@@ -246,7 +254,8 @@ const GridTableComponent = () => {
     if(mineLocationsArr.length > 0){
       mineCountArr.push(1);
     }
-    console.log(`😜247`, mineCountArr);
+    changeDisplayedMineCount(eventTarget);
+    console.log(`😜250`, mineCountArr);
   };
 
   const safeMove = (eventTarget) => {
@@ -260,11 +269,19 @@ const GridTableComponent = () => {
   createGrid();
 
   return(
-    <section className="second-section">
-      {gridBoxesArr.map((gridBoxNum, index) => {
-        return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}></div>
-      })}
-    </section>
+    <>
+      <section className="first-section text-center">
+        <div className="mineCountDisplay">010</div>
+        <div className="first-section-center-div">🙂</div>
+        <div>000</div>
+      </section>
+      <br></br>
+      <section className="second-section">
+        {gridBoxesArr.map((gridBoxNum, index) => {
+          return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}></div>
+        })}
+      </section>
+    </>
   );
 
 };
