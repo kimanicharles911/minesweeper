@@ -27,6 +27,7 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
+      if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓") event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
       if(event.target.className !== "container-fluid" && event.target.className !== "second-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
         safeMove(event.target);
         console.log(`😜35`, event);
@@ -41,6 +42,7 @@ const GridTableComponent = () => {
 
   const rightClickHandler = (event) => {
     event.preventDefault();
+    if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓") event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
     if(event.target.className === "un-clicked-div" ){
       plantFlag(event.target);
     }else if(event.target.className === "flag-square"){
@@ -184,6 +186,7 @@ const GridTableComponent = () => {
             if(parseInt(sibling.attributes.custom_id.value) === arrItem ){
               if(sibling.className !== "flag-square"){
                 sibling.className = "second-landmine-div";
+                event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😓";
               }
             }
             sibling = sibling.nextSibling;
