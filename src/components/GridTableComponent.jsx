@@ -13,11 +13,7 @@ const GridTableComponent = () => {
   const adjacentMinesDataRef = useRef();
   adjacentMinesDataRef.current = adjacentMinesData;
   const [mineCountArr] = useState([]);
-  if(mineLocationsArr.length === 0){
-    console.log(`😜17`, 10);
-  }else{
-    console.log(`😜19`, mineCountArr.length);
-  }
+  let globalFlaggedBoxesArr;
   
   const createGrid = () => {
     let i = 1;
@@ -47,6 +43,7 @@ const GridTableComponent = () => {
     }else if(event.target.className === "flag-square"){
       removeFlag(event.target);
     }
+    identifyFlaggedBoxes(event.target);
   };
 
   const startGame = (divNum, eventTarget) => {
@@ -228,13 +225,6 @@ const GridTableComponent = () => {
     plantFlagOnUnClickedBoxes(eventTarget);
     mineCountArr.pop();
     changeDisplayedMineCount(eventTarget);
-    console.log(`😜229`, mineCountArr);
-    console.log(`😜230`, mineCountArr.length);
-  };
-
-  const changeDisplayedMineCount = (eventTarget) => {
-    console.log(`😜235`, eventTarget.parentNode.parentNode.firstChild.firstChild);
-    eventTarget.parentNode.parentNode.firstChild.firstChild.innerHTML = mineCountArr.length;
   };
 
   const plantFlagOnMineBoxes = (eventTarget) => {
@@ -255,7 +245,10 @@ const GridTableComponent = () => {
       mineCountArr.push(1);
     }
     changeDisplayedMineCount(eventTarget);
-    console.log(`😜250`, mineCountArr);
+  };
+
+  const changeDisplayedMineCount = (eventTarget) => {
+    eventTarget.parentNode.parentNode.firstChild.firstChild.innerHTML = mineCountArr.length;
   };
 
   const safeMove = (eventTarget) => {
@@ -263,6 +256,35 @@ const GridTableComponent = () => {
       if(parseInt(eventTarget.attributes.custom_id.value) === noneMineBox ){
         eventTarget.className = "safe-div";
       }  
+    }
+  };
+
+  const identifyFlaggedBoxes = (eventTarget) => {
+    const flaggedBoxesArr = [];
+    let selectedBox = eventTarget.parentNode.firstChild;
+    if(selectedBox.className === "flag-square"){
+      flaggedBoxesArr.push(parseInt(selectedBox.attributes.custom_id.value))
+    }
+
+    let i = 1;
+    while(i < 64){
+      selectedBox = selectedBox.nextSibling;
+      if(selectedBox.className === "flag-square"){
+        flaggedBoxesArr.push(parseInt(selectedBox.attributes.custom_id.value))
+      }
+      i++;
+    }
+    globalFlaggedBoxesArr = flaggedBoxesArr;
+    console.log(`😜278`, globalFlaggedBoxesArr);
+    console.log(`😜279`, mineLocationsArr);
+    notifyGameWon();
+  };
+
+  const notifyGameWon = () => {
+    if(mineLocationsArr.every(arrItem => globalFlaggedBoxesArr.includes(arrItem))){
+      console.log(`😜You won`);
+    }else{
+      console.log(`😜Continue playing please.`);
     }
   };
 
