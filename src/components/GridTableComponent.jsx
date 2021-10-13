@@ -27,7 +27,7 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
-      if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓") event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
+      happyEmoji(event);
       if(event.target.className !== "container-fluid" && event.target.className !== "second-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
         safeMove(event.target);
         console.log(`😜35`, event);
@@ -42,13 +42,17 @@ const GridTableComponent = () => {
 
   const rightClickHandler = (event) => {
     event.preventDefault();
-    if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓") event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
+    happyEmoji(event);
     if(event.target.className === "un-clicked-div" ){
       plantFlag(event.target);
     }else if(event.target.className === "flag-square"){
       removeFlag(event.target);
     }
     identifyFlaggedBoxes(event.target);
+  };
+
+  const happyEmoji = (event) => {
+    if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓") event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
   };
 
   const startGame = (divNum, eventTarget) => {
