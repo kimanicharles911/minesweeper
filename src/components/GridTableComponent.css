@@ -1,3 +1,7 @@
+/* .first-section styles the section that holds the JSX of the mine count, emoji and timer. 
+  It uses grid styling but inline.
+  Each grid column has a width of 133 px.
+*/
 .first-section{
   display: inline-grid;
   grid-template-rows: 50px;
@@ -5,12 +9,19 @@
   border-width: 1px;
   border-style: solid;
   border-color: grey;  
-}.first-section > div{
+}
+/* This styles all the divs inside the first-section */
+.first-section > div{
   background-color: grey;
   border-width: 1px;
   border-style: solid;
   border-color: white;  
 }
+/* .second-section styles the section that holds the 64 boxes of the minesweeper game. 
+  It uses grid styling but inline.
+  Each grid column has a width of 50 px.
+  Each grid row has a width of 50 px.
+*/
 .second-section{
   display: inline-grid;
   grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px;
@@ -19,6 +30,7 @@
   border-style: solid;
   border-color: grey; 
 }
+/* This is the style assigned to all unclicked boxes among the 64 boxes */
 .un-clicked-div{
   background-color: grey;
   border-width: 1px;
@@ -26,28 +38,21 @@
   border-color: grey;
   box-shadow: inset 0 0 5px 2px white;
 }
-.empty-box{
-  background-color: #BEBEBE;
+/* This is the style assigned to all right clicked mine boxes among the 64 boxes */
+.landmine-div{
+  background: #ff3300;  
   border-width: 1px;
   border-style: solid;
   border-color: grey;
-  box-shadow: none;
 }
-.landmine-div{
-  background: #00CCFF;
-}
+/* This is the style assigned to all none mine boxes among the 64 boxes  after a safe move by the player */
 .safe-div{
   background: #A9A9A9;
   border-width: 1px;
   border-style: solid;
   border-color: grey;
 }
-.second-landmine-div{
-  background: #ff0080;  
-  border-width: 1px;
-  border-style: solid;
-  border-color: grey;
-}
+/* This is the style assigned to all unclicked boxes among the 64 boxes that are right clicked*/
 .flag-square{
   background: #ffff00;  
   border-width: 1px;
