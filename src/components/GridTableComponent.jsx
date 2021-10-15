@@ -47,9 +47,8 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
-      if(event.target.innerHTML !== "Rules" && event.target.parentNode.className !== "close" && event.target.parentNode.className !== "modal-header") happyEmoji(event);
-
       if(event.target.className !== "container-fluid" && event.target.className !== "third-section" && event.target.nodeName !== "HTML" && event.target.innerHTML !== "Rules" && event.target.parentNode.className !== "close" && event.target.parentNode.className !== "modal-header" && !event.target.attributes.id){
+        happyEmoji(event);
         safeMove(event.target);
         triggerMines(mineLocationsArr, event);
         setStartBoxesMineCount(event.target);

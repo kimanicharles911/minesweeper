@@ -39,6 +39,7 @@ const GameOptionsComponent = () => {
             <p>You've won the game when you've opened all squares that don't contain a mine meaning the mines left will show zero, the game status will show a smiling emoji with sunglasses (😎) you will also be alerted.</p>
             <h5 className="text-center">Losing</h5>
             <p>You've lost the game when you click on a square with a mine and all mine boxes turn red. The game status will show a smiling emoji with a downcast sweaty face (😓).</p>
+            <p className="text-center"><small>From <a href="https://cardgames.io/minesweeper/#rules">CARDGAMES.io</a></small></p>
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
@@ -50,3 +51,9 @@ const GameOptionsComponent = () => {
 }
 
 export default GameOptionsComponent
+
+/* 
+  REFERENCES
+  ===========>
+  * I got the minesweeper rules from: https://cardgames.io/minesweeper/#rules 
+*/
