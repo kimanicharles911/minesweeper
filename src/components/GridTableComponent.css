@@ -1,15 +1,6 @@
 main{
   align-items: center;
 }
-.first-section > ul {
-  display: inline-grid;
-  grid-template-columns: 200px 200px;
-  margin-bottom: 2px;
-  list-style-type: none;
-}
-.first-section > ul > li > a{
-  text-decoration: none;
-}
 /* .second-section styles the section that holds the JSX of the mine count, emoji and timer. 
   It uses grid styling but inline.
   Each grid column has a width of 133 px.

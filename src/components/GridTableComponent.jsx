@@ -14,7 +14,6 @@
   * I created a boolean toggle named timerToggle to act as switch that allows the timer to run only once when the game starts.
 */
 import { useState, useRef } from "react";
-import Modal from "react-bootstrap/Modal";
 import "./GridTableComponent.css";
 
 const GridTableComponent = () => {
@@ -29,7 +28,6 @@ const GridTableComponent = () => {
   const [mineCountArr] = useState([]);
   let globalFlaggedBoxesArr;
   let timerToggle = false;
-  const [showModal, setShowModal] = useState(false);
   
   /* The createGrid function helps in assigning IDs to each minesweeper box. */
   const createGrid = () => {
@@ -49,9 +47,9 @@ const GridTableComponent = () => {
   const leftClickHandler = () => {
     document.addEventListener("click", (event) => {
       event.preventDefault();
-      happyEmoji(event);
+      if(event.target.innerHTML !== "Rules" && event.target.parentNode.className !== "close" && event.target.parentNode.className !== "modal-header") happyEmoji(event);
 
-      if(event.target.className !== "container-fluid" && event.target.className !== "third-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
+      if(event.target.className !== "container-fluid" && event.target.className !== "third-section" && event.target.nodeName !== "HTML" && event.target.innerHTML !== "Rules" && event.target.parentNode.className !== "close" && event.target.parentNode.className !== "modal-header" && !event.target.attributes.id){
         safeMove(event.target);
         triggerMines(mineLocationsArr, event);
         setStartBoxesMineCount(event.target);
@@ -447,41 +445,6 @@ const GridTableComponent = () => {
 */
   return(
     <>
-      <header>
-        <h1 className="display-2">Minesweeper</h1>
-      </header>
-      <section className="first-section">
-        <ul>
-          <li><a href="#newgame" onClick={() => window.location.reload()}>New Game</a></li>
-          <li><a href="#rules" onClick={() => setShowModal(true)}>Rules</a></li>
-          <Modal show={showModal} scrollable={true} animation={false} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title >
-                <h2 className="text-center">Minesweeper Rules</h2>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h5 className="text-center">Objective and basic concepts</h5>
-              <p>The objective in Minesweeper is to find and mark all the mines hidden under the grey squares, in the shortest time possible. This is done by clicking on the squares to open them. Each square will have one of the following:</p>
-              <p>1. A mine, and if you click on it you'll lose the game.</p>
-              <p>2. A number, which tells you how many of its adjacent squares have mines in them.</p>
-              <p>3. Nothing. In this case you know that none of the adjacent squares have mines, and they will be automatically opened as well.</p>
-              <p>It is guaranteed that the first square you open won't contain a mine, so you can start by clicking any square. Often you'll hit on an empty square on the first try and then you'll open up a few adjacent squares as well, which makes it easier to continue. Then it's basically just looking at the numbers shown, and figuring out where the mines are.</p>
-              <h5 className="text-center">Gameplay</h5>
-              <p>There are essentially two actions you can take in Minesweeper:</p>
-              <p>1. Open a square. This is done simply by left clicking on a square.</p>
-              <p>2. Marking a square as a mine. This is done by right clicking on a square. The square will turn to color yellow.</p>
-              <h5 className="text-center">Winning</h5>
-              <p>You've won the game when you've opened all squares that don't contain a mine meaning the mines left will show zero, the game status will show a smiling emoji with sunglasses (😎) you will also be alerted.</p>
-              <h5 className="text-center">Losing</h5>
-              <p>You've lost the game when you click on a square with a mine and all mine boxes turn red. The game status will show a smiling emoji with a downcast sweaty face (😓).</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-            </Modal.Footer>
-          </Modal>
-        </ul>
-      </section>
       <section className="second-section text-center">
         <div className="mineCountDisplay">Mines left: <span>010</span></div>
         <div className="second-section-center-div">Game Status: <span>🙂</span></div>
@@ -507,4 +470,5 @@ export default GridTableComponent;
   * I Learnt to use the useRef hook from https://stackoverflow.com/a/60643670/9497346
   *  Learnt to use every from https://stackoverflow.com/a/60407793/9497346 and https://sebhastian.com/javascript-array-equality/
   * Learnt to make countUp timer at: https://stackoverflow.com/a/5517836/9497346
+  * Lear to solve the findDOMNode waring bootstrap modal error at :https://stackoverflow.com/a/66290597/9497346
 */
