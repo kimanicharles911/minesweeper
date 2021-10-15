@@ -1,3 +1,6 @@
+/* This is the styling of the unordered list of the GameOptions JSX
+  It uses inline grid styling.
+  Each grid column has a width of 200 px. */
 .first-section > ul {
   display: inline-grid;
   grid-template-columns: 200px 200px;

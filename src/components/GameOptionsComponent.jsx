@@ -1,11 +1,18 @@
+/* I imported the Modal component from the react-bootstrap library
+  I imported the styling of this component.
+  I imported the useState hook from the react library.
+  I created the GameOptionsComponent functional component.
+*/
 import Modal from "react-bootstrap/Modal";
 import "./GameOptionsComponent.css";
 import { useState } from "react";
 
 const GameOptionsComponent = () => {
 
+  /* I created a showModal state variable that enable the revealing and hiding of the react-bootstrap modal */
   const [showModal, setShowModal] = useState(false);
 
+  /* Below is the JSX for the GameOptionsComponent. It uses react-bootstrap for it's modal. */
   return (
     <section className="first-section">
       <ul>

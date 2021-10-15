@@ -1,3 +1,4 @@
+/* I created the HeaderComponent functional component  */
 const HeaderComponent = () => {
   return (
     <header>
