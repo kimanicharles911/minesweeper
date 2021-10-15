@@ -3,7 +3,8 @@
 * This is the repository that holds the source code of [My Minesweeper Game](https://gittedminesweeper.netlify.app/).  It has been developed using Reactjs and bootstrap.
 
 ## Deployed at
-* [gittedminesweeper.netlify.app](https://gittedminesweeper.netlify.app/)
+* Netlify - [gittedminesweeper.netlify.app](https://gittedminesweeper.netlify.app/)
+* Heroku - [vast-caverns-98579.herokuapp.com](https://vast-caverns-98579.herokuapp.com/)
 
 
 ## Game Rules
@@ -55,8 +56,9 @@ npm run start
 npm run build
 Know how to host at heroku.com - https://dev.to/destrodevshow/how-to-deploy-react-app-to-heroku-in-5-minutes-3dni
 
-heroku login
-git add . && git commit -m"your commit message" && git push heroku master
+⚠️ To deploy to heroku consider moving package-lock.json outside the project folder then you can perform this commands: git add . && git commit -m"deploy to heroku" && git push heroku master
+⚠️ Then after the application has been published and the hosting link works RETURN THE package-lock.json to the project folder.
+⚠️ Source: https://github.com/bazelbuild/rules_nodejs/issues/2452
 ```
 
 ## How It Was Built
