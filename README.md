@@ -33,6 +33,7 @@ git add . && git commit -m"your commit message" && git push heroku master
 ```
 npx create-react-app 
 npm i emailjs-com --save
+npm i --save bootstrap
 ```
 ##### Dependencies
 * EmailJS

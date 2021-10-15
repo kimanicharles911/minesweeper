@@ -1,8 +1,19 @@
-/* .first-section styles the section that holds the JSX of the mine count, emoji and timer. 
+main{
+  align-items: center;
+}
+.first-section > ul {
+  display: inline-grid;
+  grid-template-columns: 200px 200px;
+  margin-bottom: 2px;
+}
+.first-section > ul > li > a{
+  text-decoration: none;
+}
+/* .second-section styles the section that holds the JSX of the mine count, emoji and timer. 
   It uses grid styling but inline.
   Each grid column has a width of 133 px.
 */
-.first-section{
+.second-section{
   display: inline-grid;
   grid-template-rows: 50px;
   grid-template-columns: 133px 133px 133px;
@@ -10,19 +21,19 @@
   border-style: solid;
   border-color: grey;  
 }
-/* This styles all the divs inside the first-section */
-.first-section > div{
+/* This styles all the divs inside the second-section */
+.second-section > div{
   background-color: grey;
   border-width: 1px;
   border-style: solid;
   border-color: white;  
 }
-/* .second-section styles the section that holds the 64 boxes of the minesweeper game. 
+/* .third-section styles the section that holds the 64 boxes of the minesweeper game. 
   It uses grid styling but inline.
   Each grid column has a width of 50 px.
   Each grid row has a width of 50 px.
 */
-.second-section{
+.third-section{
   display: inline-grid;
   grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px;

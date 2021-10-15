@@ -6,7 +6,7 @@ function App() {
   /* Below is the JSX og the App component.
   The GridTableComponent is wrapped inside the main HTML tag */
   return (
-    <main className="container-fluid">
+    <main className="container-fluid text-center">
       <GridTableComponent />      
     </main>
   );

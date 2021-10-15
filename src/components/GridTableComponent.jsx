@@ -49,7 +49,7 @@ const GridTableComponent = () => {
       event.preventDefault();
       happyEmoji(event);
 
-      if(event.target.className !== "container-fluid" && event.target.className !== "second-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
+      if(event.target.className !== "container-fluid" && event.target.className !== "third-section" && event.target.nodeName !== "HTML" && !event.target.attributes.id){
         safeMove(event.target);
         triggerMines(mineLocationsArr, event);
         setStartBoxesMineCount(event.target);
@@ -80,8 +80,8 @@ const GridTableComponent = () => {
 
   /* The happyEmoji function assigns a smiling face with sunglasses emoji to the game message bar as long as the user has not lost the game. */
   const happyEmoji = (event) => {
-    if(event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML !== "😓"){
-      event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
+    if(event.target.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.firstChild.nextSibling.innerHTML !== "😓"){
+      event.target.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.firstChild.nextSibling.innerHTML = "😎";
     }
   };
 
@@ -270,7 +270,7 @@ const GridTableComponent = () => {
             if(parseInt(sibling.attributes.custom_id.value) === arrItem ){
               if(sibling.className !== "flag-square"){
                 sibling.className = "landmine-div";
-                event.target.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😓";
+                event.target.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.firstChild.nextSibling.innerHTML = "😓";
               }
             }
             sibling = sibling.nextSibling;
@@ -358,7 +358,7 @@ const GridTableComponent = () => {
 
   /* The changeDisplayedMineCount function is used to change the remaining mine count show to the user. It uses the length of the mineCountArr to achieve this. */
   const changeDisplayedMineCount = (eventTarget) => {
-    eventTarget.parentNode.parentNode.firstChild.firstChild.innerHTML = mineCountArr.length;
+    eventTarget.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.firstChild.nextSibling.innerHTML = mineCountArr.length;
   };
 
   /* The safeMove function is used to assign a left-clicked safe box the the className safe-div */
@@ -402,7 +402,7 @@ const GridTableComponent = () => {
 */
   const notifyGameWon = (eventTarget) => {
     if(mineLocationsArr.length === globalFlaggedBoxesArr.length && mineLocationsArr.every(arrItem => globalFlaggedBoxesArr.includes(arrItem))){
-      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.innerHTML = "😎";
+      eventTarget.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.firstChild.nextSibling.innerHTML = "😎";
       alert("You won!🥳 🙌🎉🥂🎈🎊");
     }
   };
@@ -419,8 +419,8 @@ const GridTableComponent = () => {
 
     const setTime = () => {
       ++seconds;
-      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.innerHTML = addPrefix(seconds % 60);
-      eventTarget.parentNode.parentNode.firstChild.firstChild.nextSibling.nextSibling.firstChild.innerHTML = addPrefix(parseInt(seconds / 60));
+      eventTarget.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.nextSibling.innerHTML = addPrefix(seconds % 60);
+      eventTarget.parentNode.parentNode.firstChild.nextSibling.nextSibling.firstChild.nextSibling.nextSibling.firstChild.nextSibling.innerHTML = addPrefix(parseInt(seconds / 60));
     };
 
     /* The addPrefix function is used to add a number zero prefix to the minutes or seconds when their value is lees than 10. */
@@ -445,13 +445,22 @@ const GridTableComponent = () => {
 */
   return(
     <>
-      <section className="first-section text-center">
-        <div className="mineCountDisplay">010</div>
-        <div className="first-section-center-div">🙂</div>
-        <div><span>00</span>:<span>00</span></div>
+      <header>
+        <h1 className="display-2">Minesweeper</h1>
+      </header>
+      <section className="first-section">
+        <ul>
+          <li><a href="">New Game</a></li>
+          <li><a href="#">Rules</a> </li>
+        </ul>
+      </section>
+      <section className="second-section text-center">
+        <div className="mineCountDisplay">Mines left: <span>010</span></div>
+        <div className="second-section-center-div">Game Status: <span>🙂</span></div>
+        <div><span>Time: </span><span>00</span>:<span>00</span></div>
       </section>
       <br></br>
-      <section className="second-section">
+      <section className="third-section">
         {gridBoxesArr.map((gridBoxNum, index) => {
           return <div className="un-clicked-div" custom_id={gridBoxNum} key={gridBoxNum} onContextMenu={(event) => rightClickHandler(event)} onClick={(event) => !gameStarted && startGame(gridBoxNum, event.target)}></div>
         })}
